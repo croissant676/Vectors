@@ -1,3 +1,5 @@
+package dev.kason.vectors;
+
 public class Point3D {
 
     public final double x, y, z;
@@ -12,7 +14,7 @@ public class Point3D {
 
     // takes in input in the form (x, y, z)
     // first and last char are ignored
-    public static Point3D fromString(String input) {
+    public static Point3D from(String input) {
         int commaIndex = input.indexOf(',');
         int secondCommaIndex = input.indexOf(',', commaIndex + 1);
         double x = Double.parseDouble(input.substring(1, commaIndex));

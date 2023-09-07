@@ -1,3 +1,5 @@
+package dev.kason.vectors;
+
 public class Point2D {
     public final double x, y;
 
@@ -9,7 +11,7 @@ public class Point2D {
     public static final Point2D ORIGIN = new Point2D(0, 0);
 
     // (x, y)
-    public static Point2D fromString(String input) {
+    public static Point2D from(String input) {
         int commaIndex = input.indexOf(',');
         double x = Double.parseDouble(input.substring(1, commaIndex));
         double y = Double.parseDouble(input.substring(commaIndex + 2, input.length() - 1));

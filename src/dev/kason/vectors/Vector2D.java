@@ -1,3 +1,5 @@
+package dev.kason.vectors;
+
 public class Vector2D {
 
     public final double x, y;
@@ -11,8 +13,8 @@ public class Vector2D {
         return new Vector2D(magnitude * Math.cos(direction), magnitude * Math.sin(direction));
     }
 
-    public static Vector2D fromString(String input) {
-        return Point2D.ORIGIN.to(Point2D.fromString(input));
+    public static Vector2D from(String input) {
+        return Point2D.ORIGIN.to(Point2D.from(input));
     }
 
     // (magnitude @ direction)
@@ -39,51 +41,51 @@ public class Vector2D {
     }
 
     // d * <u1, u2>
-    public Vector2D multiply(double d) {
+    public Vector2D times(double d) {
         return new Vector2D(x * d, y * d);
     }
 
     // d . <u1, u2> -> d * u1 + d * u2
-    public double dotProduct(Vector2D v) {
+    public double dot(Vector2D v) {
         return x * v.x + y * v.y;
     }
 
     // |<u1, u2>| = sqrt(u1^2 + u2^2)
-    public double magnitude() {
+    public double mag() {
         return Math.sqrt(x * x + y * y);
     }
 
     // the mag of the project of this vector onto v
-    public double magnitudeOfProjection(Vector2D v) {
-        return dotProduct(v.unitVector());
+    public double projMag(Vector2D v) {
+        return dot(v.unit());
     }
 
-    public Vector2D projection(Vector2D v) {
-        return Vector2D.fromDirection(direction(), magnitudeOfProjection(v));
+    public Vector2D proj(Vector2D v) {
+        return Vector2D.fromDirection(direction(), projMag(v));
     }
 
-    public boolean isParallel(Vector2D v) {
+    public boolean parallel(Vector2D v) {
         double factor = x / v.x;
         return factor == (y / v.y);
     }
 
-    public boolean isOrthogonal(Vector2D v) {
-        return dotProduct(v) == 0;
+    public boolean orthogonal(Vector2D v) {
+        return dot(v) == 0;
     }
 
     // cos(theta) = u . v / (|u| * |v|)
     // theta = arccos(u . v / (|u| * |v|))
     public double angle(Vector2D v) {
-        return Math.acos(dotProduct(v) / (magnitude() * v.magnitude()));
+        return Math.acos(dot(v) / (mag() * v.mag()));
     }
 
     // <u1, u2> / |<u1, u2>|
-    public Vector2D unitVector() {
+    public Vector2D unit() {
         return Vector2D.fromDirection(direction(), 1);
     }
 
     public String toString() {
-        return "<" + x + ", " + y + "> (" + magnitude() + " @ " + direction() + ")";
+        return "<" + x + ", " + y + "> (" + mag() + " @ " + direction() + ")";
     }
 
 

@@ -1,3 +1,5 @@
+package dev.kason.vectors;
+
 // vector parametric line in 3D space
 public class VPLine3D {
 
@@ -16,7 +18,7 @@ public class VPLine3D {
 
     public boolean contains(Point3D p) {
         Vector3D distance = this.p.to(p);
-        return distance.isParallel(v);
+        return distance.parallel(v);
     }
 
     @Override
@@ -24,11 +26,11 @@ public class VPLine3D {
         if (!(obj instanceof VPLine3D vpLine3D)) {
             return false;
         }
-        if (!v.isParallel(vpLine3D.v)) {
+        if (!v.parallel(vpLine3D.v)) {
             return false;
         }
         Vector3D distance = p.to(vpLine3D.p);
-        return distance.isParallel(v);
+        return distance.parallel(v);
     }
 
     public String toString() {

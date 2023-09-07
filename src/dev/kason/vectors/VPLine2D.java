@@ -1,3 +1,5 @@
+package dev.kason.vectors;
+
 // vector parameterized line 2D
 // p + v * t
 public class VPLine2D {
@@ -17,7 +19,7 @@ public class VPLine2D {
 
     public boolean contains(Point2D p) {
         Vector2D distance = this.p.to(p);
-        return distance.isParallel(v);
+        return distance.parallel(v);
     }
 
     @Override
@@ -25,11 +27,11 @@ public class VPLine2D {
         if (!(obj instanceof VPLine2D vpLine2D)) {
             return false;
         }
-        if (!v.isParallel(vpLine2D.v)) {
+        if (!v.parallel(vpLine2D.v)) {
             return false;
         }
         Vector2D distance = p.to(vpLine2D.p);
-        return distance.isParallel(v);
+        return distance.parallel(v);
     }
 
     public String toString() {

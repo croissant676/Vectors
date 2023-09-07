@@ -1,3 +1,5 @@
+package dev.kason.vectors;
+
 import java.util.Objects;
 
 public class Plane {
@@ -10,13 +12,13 @@ public class Plane {
         this.b = b;
         this.c = c;
         this.d = d;
-        this.basisPoint = getClosestPoint(Point3D.ORIGIN);
+        this.basisPoint = closestPoint(Point3D.ORIGIN);
     }
 
     // takes in input in the form 3x + 4y + 5z = 6
     // --OR--
     // 3x - y + 2z - 6 = 0
-    public static Plane fromString(String input) {
+    public static Plane from(String input) {
         int xIndex = input.indexOf('x'), yIndex = input.indexOf('y'), zIndex = input.indexOf('z');
         double a = parseCoefficient(input.substring(0, xIndex));
         double b = parseCoefficient(input.substring(xIndex + 1, yIndex));
@@ -40,7 +42,7 @@ public class Plane {
         return Double.parseDouble(input);
     }
 
-    public Point3D getClosestPoint(Point3D target) {
+    public Point3D closestPoint(Point3D target) {
         // x, y, z = normal * e + <x0, y0, z0> = <a, b, c> * e + <x0, y0, z0>
         // x = a * e + x0, y = b * e + y0, z = c * e + z0
         // a * x + b * y + c * z + d = 0
@@ -54,7 +56,7 @@ public class Plane {
     public Plane(Point3D a, Point3D b, Point3D c) {
         Vector3D ab = a.to(b);
         Vector3D ac = a.to(c);
-        Vector3D normal = ab.crossProduct(ac);
+        Vector3D normal = ab.cross(ac);
         // using point a
         // n1 (x - a1) + n2 (y - a2) + n3 (z - a3) = 0
         // = n1 x + n2 y + n3 z - (n1 a1 + n2 a2 + n3 a3) = 0
@@ -72,14 +74,14 @@ public class Plane {
 
     public double distanceTo(Point3D q) {
 //        // using theorem 11.13
-//        Vector3D pq = basisPoint.to(q);
+//        dev.kason.vectors.Vector3D pq = basisPoint.to(q);
 //        return Math.abs(normal().dotProduct(pq) / normal().magnitude());
         // we could also use this.to(q).magnitude()
-        return normal().magnitudeOfProjection(basisPoint.to(q));
+        return normal().projMag(basisPoint.to(q));
     }
 
     public Vector3D to(Point3D p) {
-        return getClosestPoint(p).to(p);
+        return closestPoint(p).to(p);
     }
 
     public Vector3D normal() {
